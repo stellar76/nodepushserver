@@ -1,0 +1,15 @@
+{
+  "name": "afapush",
+  "version": "1.0.0",
+  "description": "action alert push notification service.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jody Christian",
+  "license": "ISC",
+  "dependencies": {
+    "array-events": "^1.0.0",
+    "socket.io": "^1.7.2"
+  }
+}

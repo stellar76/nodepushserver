@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- stylesheets -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <!-- scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+    <script>
+    var socket = io.connect('http://localhost:8080');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+    });
+
+    function notifyMe(title, url) {
+        if (!Notification) {
+            alert('Desktop notifications not available in your browser. Try Chromium.');
+            return;
+        }
+
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+        else {
+            var notification = new Notification('YOUR PUSH NOTIFICATION NAME', {
+                icon: 'ICON FOR YOUR NOTIFICATION',
+                body: title,
+            });
+
+            notification.onclick = function() {
+                window.open(url);
+            };
+
+        }
+    }
+
+    socket.on('sendalert', (data) => {
+        console.log('checked for new alert' + data);
+        notifyMe(data.title, data.url);
+    });
+    </script>
+</body>
+
+</html>
